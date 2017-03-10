@@ -4,6 +4,7 @@ import update from 'immutability-helper'
 import AddItem from './AddItem'
 import Items from './Items'
 import { connect } from 'react-redux'
+import { setItems } from './actionCreators'
 
 class TodoList extends React.Component {
   constructor () {
@@ -19,8 +20,8 @@ class TodoList extends React.Component {
   handleAddItem () {
     const newTodo = this.createNewTodo(this.props.itemInput)
     const method = '$push'
-    const newItemsState = this.immutableUpdateState(this.state.items, [newTodo], method)
-    this.setState({items: newItemsState})
+    const newItemsState = this.immutableUpdateState(this.props.items, [newTodo], method)
+    this.props.dispatch(setItems(newItemsState))
   }
 
   handleDeleteItem (deleteId) {
@@ -75,9 +76,9 @@ class TodoList extends React.Component {
   }
 
   renderListDisplay () {
-    if (this.state.items.length > 0) {
+    if (this.props.items.length > 0) {
       return <Items
-        items={this.state.items}
+        items={this.props.items}
         editID={this.state.editID}
         handleDeleteItem={(deleteId) => this.handleDeleteItem(deleteId)}
         handleEditID={(editID) => this.setEditID(editID)}
@@ -99,16 +100,18 @@ class TodoList extends React.Component {
   }
 }
 
-const { string, array } = React.PropTypes
+const { string, array, func } = React.PropTypes
 TodoList.propTypes = {
   items: array,
   editID: string,
-  itemInput: string
+  itemInput: string,
+  dispatch: func
 }
 
 const mapStateToProps = (state) => {
   return {
-    itemInput: state.itemInput
+    itemInput: state.itemInput,
+    items: state.items
   }
 }
 
