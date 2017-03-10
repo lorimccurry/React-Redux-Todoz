@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Item Item snapshot test 1`] = `
+<li>
+  <input
+    checked={false}
+    name="completed"
+    onChange={[Function]}
+    onKeyDown={[Function]}
+    type="checkbox"
+  />
+  <p
+    className="item-text"
+  >
+    do the codez
+  </p>
+  <button
+    className="edit-btn"
+    onClick={[Function]}
+  >
+    Edit
+  </button>
+  <button
+    className="delete-btn"
+    onClick={[Function]}
+  >
+    Delete
+  </button>
+</li>
+`;

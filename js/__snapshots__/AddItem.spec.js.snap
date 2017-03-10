@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddItem AddItem snapshot test 1`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset>
+    <legend>
+      Gimme tha todoz:
+    </legend>
+    <input
+      autoFocus={true}
+      onChange={[Function]}
+      placeholder="Get coffee"
+      type="text"
+      value=""
+    />
+  </fieldset>
+</form>
+`;

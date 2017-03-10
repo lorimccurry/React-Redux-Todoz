@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditItem EditItem snapshot test 1`] = `
+<li>
+  <input
+    autoFocus={true}
+    className="update-input"
+    name="text"
+    onChange={[Function]}
+    onKeyDown={[Function]}
+    type="text"
+    value="do the codez"
+  />
+  <button
+    className="update-btn"
+    onClick={[Function]}
+  >
+    Update
+  </button>
+</li>
+`;

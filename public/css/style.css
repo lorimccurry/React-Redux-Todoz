@@ -1,0 +1,52 @@
+/* 
+ Fonts:
+  font-family: 'Roboto', sans-serif;
+  font-family: 'Open Sans', sans-serif;
+ */
+
+*, *:before, *:after {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+html{
+  height: 100%;
+  overflow-x: hidden;
+  font-family: 'Roboto', sans-serif;
+}
+body{
+  height: 100%;
+  color: #555555;
+}
+.page-container {
+  width: 80%;
+  margin: auto;
+  position: relative;
+  padding-top: 80px;
+}
+input, legend, .item-text, button, p {
+  font-size: 18px;
+}
+ul {
+  padding-left: 0;
+}
+li {
+  list-style: none;
+  margin-bottom: 10px;
+}
+button {
+  padding: 1em;
+  margin-left: .8em;
+  border-radius: none;
+  background-color: #42a5f5; 
+  border-color: #42a5f5;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.item-text {
+  margin-left: 1em;
+  display: inline-block;
+  width: 50%;
+  word-wrap: break-word;
+}

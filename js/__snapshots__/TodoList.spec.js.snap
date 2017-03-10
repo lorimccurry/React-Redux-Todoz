@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TodoList TodoList snapshot test 1`] = `
+<div>
+  <AddItem
+    onSubmit={[Function]}
+  />
+  <p>
+    Add some todoz!
+  </p>
+</div>
+`;
