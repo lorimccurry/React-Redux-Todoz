@@ -1,4 +1,6 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { setItemInput } from './actionCreators'
 
 class AddItem extends React.Component {
   constructor () {
@@ -13,13 +15,13 @@ class AddItem extends React.Component {
   }
 
   handleChange (e) {
-    this.setState({itemInput: e.target.value})
+    this.props.dispatch(setItemInput(e.target.value))
   }
 
   handleSubmit (e) {
     e.preventDefault()
-    this.props.onSubmit(this.state.itemInput)
-    this.setState({itemInput: ''})
+    this.props.onSubmit()
+    this.props.dispatch(setItemInput(''))
   }
 
   render () {
@@ -30,7 +32,7 @@ class AddItem extends React.Component {
           <input
             type='text'
             placeholder='Get coffee'
-            value={this.state.itemInput}
+            value={this.props.itemInput}
             onChange={this.handleChange}
             autoFocus
           />
@@ -43,7 +45,14 @@ class AddItem extends React.Component {
 const { string, func } = React.PropTypes
 AddItem.propTypes = {
   itemInput: string,
-  onSubmit: func
+  onSubmit: func,
+  dispatch: func
 }
 
-export default AddItem
+const mapStateToProps = (state) => {
+  return {
+    itemInput: state.itemInput
+  }
+}
+
+export default connect(mapStateToProps)(AddItem)

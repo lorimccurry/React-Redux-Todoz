@@ -3,6 +3,7 @@ import shortid from 'shortid'
 import update from 'immutability-helper'
 import AddItem from './AddItem'
 import Items from './Items'
+import { connect } from 'react-redux'
 
 class TodoList extends React.Component {
   constructor () {
@@ -15,8 +16,8 @@ class TodoList extends React.Component {
     this.handleAddItem = this.handleAddItem.bind(this)
   }
 
-  handleAddItem (itemInput) {
-    const newTodo = this.createNewTodo(itemInput)
+  handleAddItem () {
+    const newTodo = this.createNewTodo(this.props.itemInput)
     const method = '$push'
     const newItemsState = this.immutableUpdateState(this.state.items, [newTodo], method)
     this.setState({items: newItemsState})
@@ -101,7 +102,14 @@ class TodoList extends React.Component {
 const { string, array } = React.PropTypes
 TodoList.propTypes = {
   items: array,
-  editID: string
+  editID: string,
+  itemInput: string
 }
 
-export default TodoList
+const mapStateToProps = (state) => {
+  return {
+    itemInput: state.itemInput
+  }
+}
+
+export default connect(mapStateToProps)(TodoList)
