@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { setItemInput } from './actionCreators'
+import { addItem, setItemInput } from './actionCreators'
 
 class AddItem extends React.Component {
   constructor () {
@@ -11,13 +11,13 @@ class AddItem extends React.Component {
   }
 
   handleChange (e) {
-    this.props.dispatch(setItemInput(e.target.value))
+    this.props.dispatchSetItemInput(e.target.value)
   }
 
   handleSubmit (e) {
     e.preventDefault()
-    this.props.onSubmit()
-    this.props.dispatch(setItemInput(''))
+    this.props.dispatchAddItem(this.props.itemInput)
+    this.props.dispatchSetItemInput('')
   }
 
   render () {
@@ -42,7 +42,8 @@ const { string, func } = React.PropTypes
 AddItem.propTypes = {
   itemInput: string,
   onSubmit: func,
-  dispatch: func
+  dispatchSetItemInput: func,
+  dispatchAddItem: func
 }
 
 const mapStateToProps = (state) => {
@@ -51,4 +52,18 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(AddItem)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatchSetItemInput: (inputValue) => {
+      dispatch(setItemInput(inputValue))
+    },
+    dispatchAddItem: (text) => {
+      dispatch(addItem(text))
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddItem)

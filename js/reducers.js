@@ -1,14 +1,26 @@
-import { SET_ITEM_INPUT, SET_ITEMS } from './actions'
+import { ADD_ITEM, SET_EDIT_ID, SET_ITEM_INPUT, SET_ITEMS } from './actions'
 
 const DEFAULT_STATE = {
   itemInput: '',
-  items: []
+  items: [],
+  editID: ''
+}
+
+const addItem = (state, action) => {
+  return {
+    ...state,
+    items: [
+      ...state.items,
+      action.payload.item
+    ]
+  }
 }
 
 const setItemInput = (state, action) => {
-  const newState = {}
-  Object.assign(newState, state, {itemInput: action.itemInput})
-  return newState
+  return {
+    ...state,
+    itemInput: action.payload.itemInput
+  }
 }
 
 const setItems = (state, action) => {
@@ -19,6 +31,8 @@ const setItems = (state, action) => {
 
 const rootReducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
+    case ADD_ITEM:
+      return addItem(state, action)
     case SET_ITEM_INPUT:
       return setItemInput(state, action)
     case SET_ITEMS:
