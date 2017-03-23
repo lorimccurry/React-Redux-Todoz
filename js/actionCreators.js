@@ -1,4 +1,4 @@
-import { ADD_ITEM, SET_EDIT_ID, SET_ITEM_INPUT, SET_ITEMS } from './actions'
+import { ADD_ITEM, SET_EDIT_ID, SET_ITEMS } from './actions'
 import shortid from 'shortid'
 
 export function addItem (text) {
@@ -16,15 +16,6 @@ export function addItem (text) {
 
 export function setEditID (editID) {
   return { type: SET_EDIT_ID, editID }
-}
-
-export function setItemInput (itemInput) {
-  return {
-    type: SET_ITEM_INPUT,
-    payload: {
-      itemInput
-    }
-  }
 }
 
 export function setItems (items) {

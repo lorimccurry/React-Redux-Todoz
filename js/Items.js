@@ -1,6 +1,7 @@
 import React from 'react'
 import Item from './Item'
 import EditItem from './EditItem'
+import ImmutablePropTypes from 'react-immutable-proptypes'
 
 function Items (props) {
   const items = props.items
@@ -11,16 +12,16 @@ function Items (props) {
     return items.map((item) => {
       if (props.editID === item.id) {
         return <EditItem
-          key={item.id}
-          {...item}
+          key={item.get('id')}
+          item={item}
           handleEditID={(itemID) => props.handleEditID(itemID)}
-          handleUpdateItemInput={(e, itemID) => props.handleUpdateItemInput(e, itemID)}
+          handleUpdateItemInput={() => props.handleUpdateItemInput()}
           onKeyDown={(e, itemID) => props.onKeyDown(e, itemID)}
         />
       } else {
         return <Item
-          key={item.id}
-          {...item}
+          key={item.get('id')}
+          item={item}
           handleEditID={(itemID) => props.handleEditID(itemID)}
           handleUpdateItemInput={(e, itemID) => props.handleUpdateItemInput(e, itemID)}
           onKeyDown={(e, itemID) => props.onKeyDown(e, itemID)}
@@ -37,13 +38,9 @@ function Items (props) {
   )
 }
 
-const { arrayOf, shape, string, bool, func } = React.PropTypes
+const { string, func } = React.PropTypes
 Items.propTypes = {
-  items: arrayOf(shape({
-    text: string,
-    id: string,
-    completed: bool
-  })),
+  items: ImmutablePropTypes.list,
   editID: string,
   handleDeleteItem: func,
   handleEditID: func,

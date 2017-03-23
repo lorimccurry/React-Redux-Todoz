@@ -1,27 +1,32 @@
 import React from 'react'
+import ImmutablePropTypes from 'react-immutable-proptypes'
 
 function Item (props) {
+  const { item } = props
+
   return (
     <li>
       <input
         type='checkbox'
-        checked={props.completed}
+        checked={item.get('completed')}
         onChange={(e) => props.handleUpdateItemInput(e, props.id)}
         onKeyDown={(e) => props.onKeyDown(e, props.id)}
         name='completed'
       />
-      <p className='item-text'>{props.text}</p>
+      <p className='item-text'>{item.get('text')}</p>
       <button onClick={() => props.handleEditID(props.id)} className='edit-btn'>Edit</button>
       <button onClick={() => props.handleDeleteItem(props.id)} className='delete-btn'>Delete</button>
     </li>
   )
 }
 
-const { string, bool, func } = React.PropTypes
+const { func } = React.PropTypes
 Item.propTypes = {
-  text: string.isRequired,
-  id: string.isRequired,
-  completed: bool.isRequired,
+  item: ImmutablePropTypes.mapContains({
+    id: React.PropTypes.string.isRequired,
+    text: React.PropTypes.string.isRequired,
+    completed: React.PropTypes.bool.isRequired
+  }),
   handleEditID: func,
   handleDeleteItem: func,
   handleUpdateItemInput: func,

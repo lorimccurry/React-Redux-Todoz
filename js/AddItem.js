@@ -1,23 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addItem, setItemInput } from './actionCreators'
+import { addItem } from './actionCreators'
 
 class AddItem extends React.Component {
   constructor () {
     super()
 
-    this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-  }
-
-  handleChange (e) {
-    this.props.dispatchSetItemInput(e.target.value)
   }
 
   handleSubmit (e) {
     e.preventDefault()
-    this.props.dispatchAddItem(this.props.itemInput)
-    this.props.dispatchSetItemInput('')
+    this.props.dispatchAddItem(this.input.value)
+    this.input.value = ''
   }
 
   render () {
@@ -28,8 +23,7 @@ class AddItem extends React.Component {
           <input
             type='text'
             placeholder='Get coffee'
-            value={this.props.itemInput}
-            onChange={this.handleChange}
+            ref={(node) => { this.input = node }}
             autoFocus
           />
         </fieldset>
@@ -38,32 +32,19 @@ class AddItem extends React.Component {
   }
 }
 
-const { string, func } = React.PropTypes
+const { func } = React.PropTypes
 AddItem.propTypes = {
-  itemInput: string,
-  onSubmit: func,
-  dispatchSetItemInput: func,
   dispatchAddItem: func
-}
-
-const mapStateToProps = (state) => {
-  return {
-    itemInput: state.itemInput
-  }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    dispatchSetItemInput: (inputValue) => {
-      dispatch(setItemInput(inputValue))
-    },
     dispatchAddItem: (text) => {
       dispatch(addItem(text))
     }
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AddItem)
+export const Unwrapped = AddItem
+
+export default connect(null, mapDispatchToProps)(AddItem)
