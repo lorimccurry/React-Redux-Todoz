@@ -6,13 +6,22 @@ class AddItem extends React.Component {
   constructor () {
     super()
 
+    this.state = {
+      itemInput: ''
+    }
+
+    this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleChange (e) {
+    this.setState({itemInput: e.target.value})
   }
 
   handleSubmit (e) {
     e.preventDefault()
-    this.props.dispatchAddItem(this.input.value)
-    this.input.value = ''
+    this.props.dispatchAddItem(this.state.itemInput)
+    this.setState({itemInput: ''})
   }
 
   render () {
@@ -23,7 +32,8 @@ class AddItem extends React.Component {
           <input
             type='text'
             placeholder='Get coffee'
-            ref={(node) => { this.input = node }}
+            value={this.state.itemInput}
+            onChange={this.handleChange}
             autoFocus
           />
         </fieldset>
@@ -32,9 +42,10 @@ class AddItem extends React.Component {
   }
 }
 
-const { func } = React.PropTypes
+const { func, string } = React.PropTypes
 AddItem.propTypes = {
-  dispatchAddItem: func
+  dispatchAddItem: func,
+  itemInput: string
 }
 
 const mapDispatchToProps = (dispatch) => {
