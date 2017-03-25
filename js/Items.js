@@ -4,19 +4,16 @@ import EditItem from './EditItem'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 
 function Items (props) {
-  const items = props.items
+  const { items, editID } = props
   if (!items) {
     return null
   }
-  function renderListItems (items, props) {
+  function renderListItems (items, editID) {
     return items.map((item) => {
-      if (props.editID === item.id) {
+      if (editID === item.get('id')) {
         return <EditItem
           key={item.get('id')}
           item={item}
-          handleEditID={(itemID) => props.handleEditID(itemID)}
-          handleUpdateItemInput={() => props.handleUpdateItemInput()}
-          onKeyDown={(e, itemID) => props.onKeyDown(e, itemID)}
         />
       } else {
         return <Item
@@ -33,7 +30,7 @@ function Items (props) {
 
   return (
     <ul>
-      {renderListItems(items, props)}
+      {renderListItems(items, editID)}
     </ul>
   )
 }

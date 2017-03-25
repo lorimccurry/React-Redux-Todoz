@@ -1,33 +1,67 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { setUpdateText, setEditID } from './actionCreators'
+import ImmutablePropTypes from 'react-immutable-proptypes'
 
-function EditItem (props) {
-  const emptyEditID = ''
-  return (
-    <li key={props.id}>
-      <input
-        type='text'
-        value={props.text}
-        onChange={(e) => props.handleUpdateItemInput(e, props.id)}
-        onKeyDown={(e) => props.onKeyDown(e, emptyEditID)}
-        autoFocus
-        name='text'
-        className='update-input'
-      />
-      <button className='update-btn' onClick={() => props.handleEditID(emptyEditID)}>
-        Update
-      </button>
-    </li>
-  )
+class EditItem extends React.Component {
+  handleChange (event) {
+    this.props.dispatchUpdateText(event.target.value)
+  }
+
+  handleFinishUpdate (e) {
+    if (e.keyCode === 13 || e.type === 'click') {
+      this.props.dispatchSetEditID('')
+    }
+  }
+
+  render () {
+    const { item } = this.props
+    return (
+      <li key={item.get('id')}>
+        <input
+          type='text'
+          value={item.get('text')}
+          onChange={(event) => this.handleChange(event)}
+          onKeyDown={(e) => this.handleFinishUpdate(e)}
+          autoFocus
+          className='update-input'
+        />
+        <button className='update-btn' onClick={(e) => this.handleFinishUpdate(e)}>
+          Update
+        </button>
+      </li>
+    )
+  }
 }
 
-const { string, bool, func } = React.PropTypes
+const { func } = React.PropTypes
 EditItem.propTypes = {
-  text: string.isRequired,
-  id: string.isRequired,
-  completed: bool.isRequired,
-  handleUpdateItemInput: func,
-  onKeyDown: func,
-  handleEditID: func
+  item: ImmutablePropTypes.mapContains({
+    id: React.PropTypes.string.isRequired,
+    text: React.PropTypes.string.isRequired,
+    completed: React.PropTypes.bool.isRequired
+  }),
+  dispatchUpdateText: func,
+  dispatchSetEditID: func
 }
 
-export default EditItem
+const mapStateToProps = (state) => {
+  return {
+    editID: state.editID,
+    setUpdateText: state.setUpdateText,
+    setEditID: state.setEditID
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatchUpdateText: (text) => {
+      dispatch(setUpdateText(text))
+    },
+    dispatchSetEditID: (id) => {
+      dispatch(setEditID(id))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditItem)
