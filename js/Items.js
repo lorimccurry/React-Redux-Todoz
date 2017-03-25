@@ -19,9 +19,6 @@ function Items (props) {
         return <Item
           key={item.get('id')}
           item={item}
-          handleEditID={(itemID) => props.handleEditID(itemID)}
-          handleUpdateItemInput={(e, itemID) => props.handleUpdateItemInput(e, itemID)}
-          onKeyDown={(e, itemID) => props.onKeyDown(e, itemID)}
           handleDeleteItem={(itemID) => props.handleDeleteItem(itemID)}
         />
       }

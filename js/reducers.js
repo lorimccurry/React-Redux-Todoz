@@ -1,4 +1,4 @@
-import { ADD_ITEM, SET_EDIT_ID, SET_ITEMS, SET_UPDATE_TEXT } from './actions'
+import { ADD_ITEM, SET_EDIT_ID, SET_ITEMS, SET_TOGGLE_COMPLETE, SET_UPDATE_TEXT } from './actions'
 import { List, Record, fromJS } from 'immutable'
 
 const AppStateRecord = Record({
@@ -23,6 +23,16 @@ const setItems = (state, action) => {
   return newState
 }
 
+const setToggleComplete = (state, action) => {
+  const updatedItemsList = state.get('items').map(item => {
+    if (item.get('id') === action.payload.itemID) {
+      return item.update('completed', val => !val)
+    }
+    return item
+  })
+  return state.set('items', updatedItemsList)
+}
+
 const setUpdateText = (state, action) => {
   const updateIndex = state.get('items').findIndex(item => {
     return item.get('id') === state.get('editID')
@@ -38,6 +48,8 @@ const rootReducer = (state = DEFAULT_STATE, action) => {
       return setEditID(state, action)
     case SET_ITEMS:
       return setItems(state, action)
+    case SET_TOGGLE_COMPLETE:
+      return setToggleComplete(state, action)
     case SET_UPDATE_TEXT:
       return setUpdateText(state, action)
     default:
