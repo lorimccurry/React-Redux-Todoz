@@ -4,8 +4,8 @@ import { setUpdateText, setEditID } from './actionCreators'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 
 class EditItem extends React.Component {
-  handleChange (event) {
-    this.props.dispatchUpdateText(event.target.value)
+  handleChange (e) {
+    this.props.dispatchUpdateText(e.target.value)
   }
 
   handleFinishUpdate (e) {
@@ -21,7 +21,7 @@ class EditItem extends React.Component {
         <input
           type='text'
           value={item.get('text')}
-          onChange={(event) => this.handleChange(event)}
+          onChange={(e) => this.handleChange(e)}
           onKeyDown={(e) => this.handleFinishUpdate(e)}
           autoFocus
           className='update-input'
