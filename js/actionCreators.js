@@ -1,4 +1,4 @@
-import { ADD_ITEM, SET_EDIT_ID, SET_ITEMS, SET_TOGGLE_COMPLETE, SET_UPDATE_TEXT } from './actions'
+import { ADD_ITEM, DELETE_ITEM, SET_EDIT_ID, SET_TOGGLE_COMPLETE, SET_UPDATE_TEXT } from './actions'
 import shortid from 'shortid'
 
 export function addItem (text) {
@@ -14,6 +14,15 @@ export function addItem (text) {
   }
 }
 
+export function deleteItem (deleteID) {
+  return {
+    type: DELETE_ITEM,
+    payload: {
+      deleteID
+    }
+  }
+}
+
 export function setEditID (editID) {
   return {
     type: SET_EDIT_ID,
@@ -21,10 +30,6 @@ export function setEditID (editID) {
       editID
     }
   }
-}
-
-export function setItems (items) {
-  return { type: SET_ITEMS, items }
 }
 
 export function setToggleComplete (itemID) {

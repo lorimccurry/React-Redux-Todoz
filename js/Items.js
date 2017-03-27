@@ -19,7 +19,6 @@ function Items (props) {
         return <Item
           key={item.get('id')}
           item={item}
-          handleDeleteItem={(itemID) => props.handleDeleteItem(itemID)}
         />
       }
     })
@@ -32,14 +31,10 @@ function Items (props) {
   )
 }
 
-const { string, func } = React.PropTypes
+const { string } = React.PropTypes
 Items.propTypes = {
   items: ImmutablePropTypes.list,
-  editID: string,
-  handleDeleteItem: func,
-  handleEditID: func,
-  handleUpdateItemInput: func,
-  onKeyDown: func
+  editID: string
 }
 
 export default Items
