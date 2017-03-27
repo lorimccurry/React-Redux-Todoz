@@ -69,4 +69,6 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
+export const Unwrapped = Item
+
 export default connect(null, mapDispatchToProps)(Item)

@@ -2,8 +2,6 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { shallow, mount, render } from 'enzyme'
 import { shallowToJson } from 'enzyme-to-json'
-import store from './store'
-import { addItem } from './actionCreators'
 import { spy } from 'sinon'
 import { Unwrapped as UnwrappedAddItem } from './AddItem'
 
