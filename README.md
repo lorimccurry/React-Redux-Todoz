@@ -1,5 +1,5 @@
 # React-Redux-Todoz
-React, Redux, Webpack, Jest, Enzyme.
+React, Redux, ImmutableJS, Webpack, Jest, Enzyme.
 
 ----
 If you don't already have yarn:
