@@ -39,4 +39,6 @@ const mapStateToProps = (state) => {
   }
 }
 
+export const Unwrapped = TodoList
+
 export default connect(mapStateToProps)(TodoList)

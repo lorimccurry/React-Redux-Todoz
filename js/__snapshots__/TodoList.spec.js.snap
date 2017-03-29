@@ -2,9 +2,7 @@
 
 exports[`TodoList TodoList snapshot test 1`] = `
 <div>
-  <AddItem
-    onSubmit={[Function]}
-  />
+  <Connect(AddItem) />
   <p>
     Add some todoz!
   </p>
