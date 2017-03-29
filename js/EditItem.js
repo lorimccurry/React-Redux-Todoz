@@ -64,4 +64,6 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
+export const Unwrapped = EditItem
+
 export default connect(mapStateToProps, mapDispatchToProps)(EditItem)
