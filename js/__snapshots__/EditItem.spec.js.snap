@@ -5,7 +5,6 @@ exports[`EditItem EditItem snapshot test 1`] = `
   <input
     autoFocus={true}
     className="update-input"
-    name="text"
     onChange={[Function]}
     onKeyDown={[Function]}
     type="text"

@@ -2,78 +2,69 @@ import React from 'react'
 import { shallow, mount } from 'enzyme'
 import { shallowToJson } from 'enzyme-to-json'
 import { spy } from 'sinon'
+import { Map } from 'immutable'
 import EditItem from './EditItem'
+import { Unwrapped as UnwrappedEditItem } from './EditItem'
 
 describe('EditItem', () => {
-  it('EditItem snapshot test', () => {
-    const item = {
+  function getImmutableItem () {
+    return Map({
       completed: false,
       id: 'iou12oiv',
-      text: 'do the codez' 
-    }
-    const component = shallow(<EditItem key={item.id} {...item} />) 
+      text: 'do the codez'
+    })
+  }
+
+  it('EditItem snapshot test', () => {
+    const immutableEditItem = getImmutableItem()
+    const component = shallow(<UnwrappedEditItem key={immutableEditItem.get('id')} item={immutableEditItem} />)
     const tree = shallowToJson(component)
     expect(tree).toMatchSnapshot()
   })
 
   it('should render an li, input, update button', () => {
-    const item = {
-      completed: false,
-      id: 'iou12oiv',
-      text: 'do the codez' 
-    }
-    const component = shallow(<EditItem key={item.id} {...item} />) 
+    const immutableEditItem = getImmutableItem()
+    const component = shallow(<UnwrappedEditItem key={immutableEditItem.get('id')} item={immutableEditItem} />)
     expect(component.find('li').length).toEqual(1)
     expect(component.find('input').length).toEqual(1)
     expect(component.find('button.update-btn').length).toEqual(1)
+    expect(component.key()).toEqual('iou12oiv')
   })
 
   it('should render the existing item text in the input', () => {
-    const item = {
-      completed: false,
-      id: 'iou12oiv',
-      text: 'do the codez' 
-    }
-    const component = mount(<EditItem key={item.id} {...item} />)
+    const immutableEditItem = getImmutableItem()
+    const component = shallow(<UnwrappedEditItem key={immutableEditItem.get('id')} item={immutableEditItem} />)
     const input = component.find('input')
-    expect(component.prop('text')).toEqual('do the codez')
     expect(input.prop('value')).toEqual('do the codez')
-    expect(component.prop('id')).toEqual('iou12oiv')
   })
 
-  it('should accept input', () => {
-    const item = {
-      completed: false,
-      id: 'iou12oiv',
-      text: 'do the codez' 
-    }
+  it('should accept input and call dispatchUpdateText with input value', () => {
+    const immutableEditItem = getImmutableItem()
     const updateSpy = spy()
-    const component = mount(<EditItem
-      key={item.id}
-      {...item}
-      handleUpdateItemInput={updateSpy}
-      />)
+    const component = mount(
+      <UnwrappedEditItem
+        key={immutableEditItem.get('id')}
+        item={immutableEditItem}
+        dispatchUpdateText={updateSpy}
+      />
+    )
     const input = component.find('input')
     input.simulate('change', {target: {value: 'get coffee'}})
-    component.setProps({ text: 'get coffee'})
 
-    expect(input.prop('value')).toEqual('get coffee')
-    expect(input.prop('value')).not.toEqual('do the codez')
-    expect(component.prop('text')).toEqual('get coffee')
+    expect(updateSpy.calledOnce).toEqual(true)
+    expect(updateSpy.calledWith('get coffee')).toEqual(true)
   })
 
-  it('should call handleEditID when Update button clicked', () => {
-    const item = {
-      completed: false,
-      id: 'iou12oiv',
-      text: 'do the codez' 
-    }
+  it('should call dispatchSetEditID when Update button clicked', () => {
+    const immutableEditItem = getImmutableItem()
     const updateSpy = spy()
-    const component = mount(<EditItem
-      key={item.id}
-      {...item}
-      handleEditID={updateSpy}
-      />)
+    const component = mount(
+      <UnwrappedEditItem
+        key={immutableEditItem.get('id')}
+        item={immutableEditItem}
+        dispatchSetEditID={updateSpy}
+      />
+    )
     const updateBtn = component.find('.update-btn')
     updateBtn.simulate('click')
 
