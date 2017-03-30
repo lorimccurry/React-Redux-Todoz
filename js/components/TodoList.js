@@ -34,8 +34,8 @@ TodoList.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    items: state.items,
-    editID: state.editID
+    items: state.todos.items,
+    editID: state.todos.editID
   }
 }
 

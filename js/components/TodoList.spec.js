@@ -2,8 +2,8 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { shallow, mount } from 'enzyme'
 import { shallowToJson } from 'enzyme-to-json'
-import store from './store'
-import { addItem, deleteItem } from './actionCreators'
+import store from '../store/store'
+import { addItem, deleteItem } from '../actions/actionCreators'
 import TodoList from './TodoList'
 import { Unwrapped as UnwrappedTodoList } from './TodoList'
 import Items from './Items'
@@ -13,23 +13,23 @@ import AddItem from './AddItem'
 
 describe('TodoList', () => {
   it('TodoList snapshot test', () => {
-    const stateItems = store.getState().get('items')
-    const stateEditID = store.getState().get('editID') 
+    const stateItems = store.getState().todos.get('items')
+    const stateEditID = store.getState().todos.get('editID') 
     const component = shallow(<UnwrappedTodoList items={stateItems} editID={stateEditID} />)
     const tree = shallowToJson(component)
     expect(tree).toMatchSnapshot()
   })
 
   it('renders AddItem component', () => {
-    const stateItems = store.getState().get('items')
-    const stateEditID = store.getState().get('editID') 
+    const stateItems = store.getState().todos.get('items')
+    const stateEditID = store.getState().todos.get('editID') 
     const component = shallow(<UnwrappedTodoList items={stateItems} editID={stateEditID} />)
     expect(component.find(AddItem).length).toEqual(1)
   })
 
   it('should start with an empty list', () => {
-    const stateItems = store.getState().get('items')
-    const stateEditID = store.getState().get('editID') 
+    const stateItems = store.getState().todos.get('items')
+    const stateEditID = store.getState().todos.get('editID') 
     const component = shallow(<UnwrappedTodoList items={stateItems} editID={stateEditID} />)
     const p = component.find('p')
     expect(component.find('li').length).toEqual(0)
@@ -39,8 +39,8 @@ describe('TodoList', () => {
   })
 
   it('renders instruction message when no items', () => {
-    const stateItems = store.getState().get('items')
-    const stateEditID = store.getState().get('editID') 
+    const stateItems = store.getState().todos.get('items')
+    const stateEditID = store.getState().todos.get('editID') 
     const component = shallow(<UnwrappedTodoList items={stateItems} editID={stateEditID} />)
     expect(stateItems.size).toEqual(0)
     expect(component.contains(<p>Add some todoz!</p>)).toEqual(true)
@@ -53,7 +53,7 @@ describe('TodoList', () => {
     expect(component.containsMatchingElement(<Items />)).toEqual(true)
     expect(component.contains(<p>Add some todoz!</p>)).toEqual(false)
 
-    const deleteID = store.getState().get('items').get(0).get('id')
+    const deleteID = store.getState().todos.get('items').get(0).get('id')
     store.dispatch(deleteItem(deleteID))
 
     expect(component.containsMatchingElement(<Items />)).toEqual(false)
@@ -64,9 +64,10 @@ describe('TodoList', () => {
 describe('TodoList integration testing', () => {
   it('adds items to the store and view', () => {
     const component = mount(<Provider store={store}><TodoList /></Provider>)
+
     expect(component.containsMatchingElement(<Items />)).toEqual(false)
     expect(component.contains(<p>Add some todoz!</p>)).toEqual(true)
-    expect(store.getState().get('items').size).toEqual(0)
+    expect(store.getState().todos.get('items').size).toEqual(0)
 
     const addInput = component.find('input[type="text"]')
     addInput.simulate('change', {target: {value: 'get beer'}})
@@ -76,7 +77,7 @@ describe('TodoList integration testing', () => {
 
     expect(component.containsMatchingElement(<Items />)).toEqual(true)
     expect(component.contains(<p>Add some todoz!</p>)).toEqual(false)
-    expect(store.getState().get('items').size).toEqual(1)
+    expect(store.getState().todos.get('items').size).toEqual(1)
     expect(component.containsMatchingElement(<Item />)).toEqual(true)
     expect(component.containsMatchingElement(<EditItem />)).toEqual(false)
     expect(component.find(Item).length).toEqual(1)
@@ -96,7 +97,7 @@ describe('TodoList integration testing', () => {
     deleteBtn.simulate('click')
 
     expect(component.find(Item).length).toEqual(1)
-    expect(store.getState().get('items').size).toEqual(1)
+    expect(store.getState().todos.get('items').size).toEqual(1)
 
     item = component.find(Item)
     deleteBtn = item.find('.delete-btn')
@@ -104,7 +105,7 @@ describe('TodoList integration testing', () => {
 
     expect(component.containsMatchingElement(<Items />)).toEqual(false)
     expect(component.contains(<p>Add some todoz!</p>)).toEqual(true)
-    expect(store.getState().get('items').size).toEqual(0)
+    expect(store.getState().todos.get('items').size).toEqual(0)
   })
 
   it('edits item text and store', () => {
@@ -128,7 +129,7 @@ describe('TodoList integration testing', () => {
     const event = {target: {type: 'text', name: 'text', value: 'live'}}
     updateInput.simulate('change', event)
 
-    const itemStoreText = store.getState().get('items').get(0).get('text')
+    const itemStoreText = store.getState().todos.get('items').get(0).get('text')
     const itemValue = updateInput.prop('value')
     expect(itemStoreText).toEqual('live')
     expect(itemValue).toEqual('live')
@@ -148,20 +149,20 @@ describe('TodoList integration testing', () => {
 
     let item = component.find('Item').first()
     const itemCheckbox = item.find('input[name="completed"]')
-    const itemCheckboxStore = store.getState().get('items').get(0).get('completed')
+    const itemCheckboxStore = store.getState().todos.get('items').get(0).get('completed')
     const itemCheckboxChecked = itemCheckbox.prop('checked')
     expect(itemCheckboxStore).toEqual(false)
     expect(itemCheckboxChecked).toEqual(false)
 
     itemCheckbox.simulate('change')
-    let updatedItemCheckboxStore = store.getState().get('items').get(0).get('completed')
+    let updatedItemCheckboxStore = store.getState().todos.get('items').get(0).get('completed')
     let updatedItemCheckboxChecked = itemCheckbox.prop('checked')
 
     expect(updatedItemCheckboxStore).toEqual(true)
     expect(updatedItemCheckboxChecked).toEqual(true)
 
     itemCheckbox.simulate('change')
-    updatedItemCheckboxStore = store.getState().get('items').get(0).get('completed')
+    updatedItemCheckboxStore = store.getState().todos.get('items').get(0).get('completed')
     updatedItemCheckboxChecked = itemCheckbox.prop('checked')
 
     expect(updatedItemCheckboxStore).toEqual(false)

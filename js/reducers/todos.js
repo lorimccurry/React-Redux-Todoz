@@ -1,12 +1,12 @@
-import { ADD_ITEM, DELETE_ITEM, SET_EDIT_ID, SET_TOGGLE_COMPLETE, SET_UPDATE_TEXT } from './actions'
+import { ADD_ITEM, DELETE_ITEM, SET_EDIT_ID, SET_TOGGLE_COMPLETE, SET_UPDATE_TEXT } from '../actions/actions'
 import { List, Record, fromJS } from 'immutable'
 
-const AppStateRecord = Record({
+const TodoStateRecord = Record({
   items: new List(),
   editID: ''
 })
 
-const DEFAULT_STATE = new AppStateRecord()
+const DEFAULT_STATE = new TodoStateRecord()
 
 const addItem = (state, action) => {
   const updatedItemsList = state.get('items').push(fromJS(action.payload.item))
@@ -42,7 +42,7 @@ const setUpdateText = (state, action) => {
   return state.setIn(['items', updateIndex, 'text'], action.payload.text)
 }
 
-const rootReducer = (state = DEFAULT_STATE, action) => {
+const todos = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
     case ADD_ITEM:
       return addItem(state, action)
@@ -59,4 +59,4 @@ const rootReducer = (state = DEFAULT_STATE, action) => {
   }
 }
 
-export default rootReducer
+export default todos

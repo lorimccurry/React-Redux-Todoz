@@ -1,7 +1,7 @@
 import { createStore, compose } from 'redux'
-import rootReducer from './reducers'
+import reducer from '../reducers/index'
 
-const store = createStore(rootReducer, compose(
+const store = createStore(reducer, compose(
   typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : (f) => f
 ))
 export default store

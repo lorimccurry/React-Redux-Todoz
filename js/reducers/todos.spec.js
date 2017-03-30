@@ -1,9 +1,9 @@
-import reducer from './reducers'
-import { ADD_ITEM, DELETE_ITEM, SET_EDIT_ID, SET_TOGGLE_COMPLETE, SET_UPDATE_TEXT } from './actions'
-import { addItem, deleteItem, setEditID, setToggleComplete, setUpdateText } from './actionCreators'
+import reducer from './todos'
+import { ADD_ITEM, DELETE_ITEM, SET_EDIT_ID, SET_TOGGLE_COMPLETE, SET_UPDATE_TEXT } from '../actions/actions'
+import { addItem, deleteItem, setEditID, setToggleComplete, setUpdateText } from '../actions/actionCreators'
 import { toJS } from 'immutable'
 
-describe('root reducer', () => {
+describe('todos reducer', () => {
   function getStateWithItems (state) {
     let action = addItem('i eat beans')
     state = reducer(state, action)
