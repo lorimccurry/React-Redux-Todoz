@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addItem } from './actionCreators'
+import { addItem } from '../actions/actionCreators'
 
 class AddItem extends React.Component {
   constructor () {

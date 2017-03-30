@@ -2,8 +2,8 @@ import React from 'react'
 import { render } from 'react-dom'
 import '../public/css/style.css'
 import { Provider } from 'react-redux'
-import store from './store'
-import TodoList from './TodoList'
+import store from './store/store'
+import TodoList from './components/TodoList'
 
 class App extends React.Component {
   render () {

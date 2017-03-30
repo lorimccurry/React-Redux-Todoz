@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { setUpdateText, setEditID } from './actionCreators'
+import { setUpdateText, setEditID } from '../actions/actionCreators'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 
 class EditItem extends React.Component {
@@ -45,14 +45,6 @@ EditItem.propTypes = {
   dispatchSetEditID: func
 }
 
-const mapStateToProps = (state) => {
-  return {
-    editID: state.editID,
-    setUpdateText: state.setUpdateText,
-    setEditID: state.setEditID
-  }
-}
-
 const mapDispatchToProps = (dispatch) => {
   return {
     dispatchUpdateText: (text) => {
@@ -66,4 +58,4 @@ const mapDispatchToProps = (dispatch) => {
 
 export const Unwrapped = EditItem
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditItem)
+export default connect(null, mapDispatchToProps)(EditItem)

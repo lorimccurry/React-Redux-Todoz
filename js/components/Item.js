@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { deleteItem, setEditID, setToggleComplete } from './actionCreators'
+import { deleteItem, setEditID, setToggleComplete } from '../actions/actionCreators'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 
 class Item extends React.Component {
