@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filters Filters snapsnot test 1`] = `
+<div>
+  <button
+    className="filter-all"
+    onClick={[Function]}
+  >
+    All
+  </button>
+  <button
+    className="filter-completed"
+    onClick={[Function]}
+  >
+    Completed
+  </button>
+  <button
+    className="filter-uncompleted"
+    onClick={[Function]}
+  >
+    Uncompleted
+  </button>
+</div>
+`;
