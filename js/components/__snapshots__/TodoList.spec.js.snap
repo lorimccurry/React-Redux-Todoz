@@ -6,5 +6,6 @@ exports[`TodoList TodoList snapshot test 1`] = `
   <p>
     Add some todoz!
   </p>
+  <Connect(Filters) />
 </div>
 `;

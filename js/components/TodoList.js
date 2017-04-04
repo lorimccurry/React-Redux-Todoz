@@ -1,41 +1,76 @@
 import React from 'react'
 import AddItem from './AddItem'
 import Items from './Items'
+import Filters from './Filters'
 import { connect } from 'react-redux'
 import ImmutablePropTypes from 'react-immutable-proptypes'
+import { completed } from '../constants'
 
-function TodoList (props) {
-  const { items, editID } = props
+class TodoList extends React.Component {
+  constructor () {
+    super()
 
-  function renderListDisplay (items, editID) {
-    if (items.size > 0) {
-      return <Items
-        items={items}
-        editID={editID}
-        />
-    } else {
-      return <p>Add some todoz!</p>
-    }
+    this.filteredItems = this.filteredItems.bind(this)
+    this.renderListDisplay = this.renderListDisplay.bind(this)
   }
 
-  return (
-    <div>
-      <AddItem />
-      {renderListDisplay(items, editID)}
-    </div>
-  )
+  filteredItems (items, activeFilter) {
+    var filteredItems = {
+      'completed': () => {
+        return items.groupBy(item => item.get(completed)).get(true)
+      },
+      'uncompleted': () => {
+        return items.groupBy(item => item.get(completed)).get(false)
+      },
+      'default': () => {
+        return items
+      }
+    }
+    return (filteredItems[activeFilter] || filteredItems['default'])()
+  }
+
+  renderListDisplay (items, editID, activeFilter) {
+    const filteredItems = this.filteredItems(items, activeFilter)
+    var hasItems = items.size > 0 ? 'yes' : 'default'
+
+    var listRender = {
+      'yes': () => {
+        return <Items
+          items={filteredItems}
+          editID={editID}
+          />
+      },
+      'default': () => {
+        return <p>Add some todoz!</p>
+      }
+    }
+    return (listRender[hasItems] || listRender['default'])()
+  }
+
+  render () {
+    const { items, editID, activeFilter } = this.props
+    return (
+      <div>
+        <AddItem />
+        {this.renderListDisplay(items, editID, activeFilter)}
+        <Filters />
+      </div>
+    )
+  }
 }
 
 const { string } = React.PropTypes
 TodoList.propTypes = {
   items: ImmutablePropTypes.list,
-  editID: string
+  editID: string,
+  activeFilter: string
 }
 
 const mapStateToProps = (state) => {
   return {
     items: state.todos.items,
-    editID: state.todos.editID
+    editID: state.todos.editID,
+    activeFilter: state.activeFilter.filter
   }
 }
 

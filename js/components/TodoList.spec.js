@@ -3,13 +3,15 @@ import { Provider } from 'react-redux'
 import { shallow, mount } from 'enzyme'
 import { shallowToJson } from 'enzyme-to-json'
 import store from '../store/store'
-import { addItem, deleteItem } from '../actions/actionCreators'
+import { addItem, deleteItem, setActiveFilter, setToggleComplete } from '../actions/actionCreators'
 import TodoList from './TodoList'
 import { Unwrapped as UnwrappedTodoList } from './TodoList'
 import Items from './Items'
 import Item from './Item'
 import EditItem from './EditItem'
 import AddItem from './AddItem'
+import Filters from './Filters'
+import { completed, uncompleted, all } from '../constants'
 
 describe('TodoList', () => {
   it('TodoList snapshot test', () => {
@@ -58,6 +60,13 @@ describe('TodoList', () => {
 
     expect(component.containsMatchingElement(<Items />)).toEqual(false)
     expect(component.contains(<p>Add some todoz!</p>)).toEqual(true)
+  })
+
+  it('renders Filters', () => {
+    const stateItems = store.getState().todos.get('items')
+    const stateEditID = store.getState().todos.get('editID') 
+    const component = shallow(<UnwrappedTodoList items={stateItems} editID={stateEditID} />)
+    expect(component.containsMatchingElement(<Filters />)).toEqual(true)
   })
 })
 
@@ -149,23 +158,61 @@ describe('TodoList integration testing', () => {
 
     let item = component.find('Item').first()
     const itemCheckbox = item.find('input[name="completed"]')
-    const itemCheckboxStore = store.getState().todos.get('items').get(0).get('completed')
+    const itemCheckboxStore = store.getState().todos.get('items').get(0).get(completed)
     const itemCheckboxChecked = itemCheckbox.prop('checked')
     expect(itemCheckboxStore).toEqual(false)
     expect(itemCheckboxChecked).toEqual(false)
 
     itemCheckbox.simulate('change')
-    let updatedItemCheckboxStore = store.getState().todos.get('items').get(0).get('completed')
+    let updatedItemCheckboxStore = store.getState().todos.get('items').get(0).get(completed)
     let updatedItemCheckboxChecked = itemCheckbox.prop('checked')
 
     expect(updatedItemCheckboxStore).toEqual(true)
     expect(updatedItemCheckboxChecked).toEqual(true)
 
     itemCheckbox.simulate('change')
-    updatedItemCheckboxStore = store.getState().todos.get('items').get(0).get('completed')
+    updatedItemCheckboxStore = store.getState().todos.get('items').get(0).get(completed)
     updatedItemCheckboxChecked = itemCheckbox.prop('checked')
 
     expect(updatedItemCheckboxStore).toEqual(false)
     expect(updatedItemCheckboxChecked).toEqual(false)
+  })
+
+  it('filters items', () => {
+    const component = mount(<Provider store={store}><TodoList /></Provider>)
+    // make item1 completed 
+    let item1 = store.getState().todos.get('items').get(0)
+    store.dispatch(setToggleComplete(item1.get('id')))
+
+    item1 = store.getState().todos.get('items').get(0)
+    let item2 = store.getState().todos.get('items').get(1)
+    let item3 = store.getState().todos.get('items').get(2)
+    let items = store.getState().todos.get('items')
+
+    expect(items.size).toEqual(3)
+    expect(item1.get(completed)).toEqual(true)
+    expect(item2.get(completed)).toEqual(false)
+    expect(item3.get(completed)).toEqual(false)
+
+    // test 3 filters
+    store.dispatch(setActiveFilter(uncompleted))
+    expect(component.find(Item).length).toEqual(2)
+
+    store.dispatch(setActiveFilter(completed))
+    expect(component.find(Item).length).toEqual(1)
+
+    store.dispatch(setActiveFilter(all))
+    expect(component.find(Item).length).toEqual(3)
+
+    // make all items uncompleted
+    item1 = store.getState().todos.get('items').get(0)
+    store.dispatch(setToggleComplete(item1.get('id')))
+
+    item1 = store.getState().todos.get('items').get(0)
+    expect(item1.get(completed)).toEqual(false)
+
+    // handle an undefined items or filteredItems case
+    store.dispatch(setActiveFilter(completed))
+    expect(component.find(Item).length).toEqual(0)
   })
 })

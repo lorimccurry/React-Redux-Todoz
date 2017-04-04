@@ -1,5 +1,6 @@
-import { ADD_ITEM, DELETE_ITEM, SET_EDIT_ID, SET_TOGGLE_COMPLETE, SET_UPDATE_TEXT } from './actions'
+import { ADD_ITEM, DELETE_ITEM, SET_ACTIVE_FILTER, SET_EDIT_ID, SET_TOGGLE_COMPLETE, SET_UPDATE_TEXT } from './actions'
 import shortid from 'shortid'
+import { all } from '../constants'
 
 export function addItem (text) {
   return {
@@ -19,6 +20,15 @@ export function deleteItem (deleteID) {
     type: DELETE_ITEM,
     payload: {
       deleteID
+    }
+  }
+}
+
+export function setActiveFilter (filter = all) {
+  return {
+    type: SET_ACTIVE_FILTER,
+    payload: {
+      filter
     }
   }
 }
