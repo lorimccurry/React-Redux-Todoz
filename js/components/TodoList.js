@@ -4,7 +4,7 @@ import Items from './Items'
 import Filters from './Filters'
 import { connect } from 'react-redux'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import { completed, uncompleted } from '../constants'
+import { completed } from '../constants'
 
 class TodoList extends React.Component {
   constructor () {
@@ -15,26 +15,36 @@ class TodoList extends React.Component {
   }
 
   filteredItems (items, activeFilter) {
-    switch (activeFilter) {
-      case completed:
+    var filteredItems = {
+      'completed': () => {
         return items.groupBy(item => item.get(completed)).get(true)
-      case uncompleted:
+      },
+      'uncompleted': () => {
         return items.groupBy(item => item.get(completed)).get(false)
-      default:
+      },
+      'default': () => {
         return items
+      }
     }
+    return (filteredItems[activeFilter] || filteredItems['default'])()
   }
 
   renderListDisplay (items, editID, activeFilter) {
     const filteredItems = this.filteredItems(items, activeFilter)
-    if (items.size > 0) {
-      return <Items
-        items={filteredItems}
-        editID={editID}
-        />
-    } else {
-      return <p>Add some todoz!</p>
+    var hasItems = items.size > 0 ? 'yes' : 'default'
+
+    var listRender = {
+      'yes': () => {
+        return <Items
+          items={filteredItems}
+          editID={editID}
+          />
+      },
+      'default': () => {
+        return <p>Add some todoz!</p>
+      }
     }
+    return (listRender[hasItems] || listRender['default'])()
   }
 
   render () {

@@ -158,20 +158,20 @@ describe('TodoList integration testing', () => {
 
     let item = component.find('Item').first()
     const itemCheckbox = item.find('input[name="completed"]')
-    const itemCheckboxStore = store.getState().todos.get('items').get(0).get('completed')
+    const itemCheckboxStore = store.getState().todos.get('items').get(0).get(completed)
     const itemCheckboxChecked = itemCheckbox.prop('checked')
     expect(itemCheckboxStore).toEqual(false)
     expect(itemCheckboxChecked).toEqual(false)
 
     itemCheckbox.simulate('change')
-    let updatedItemCheckboxStore = store.getState().todos.get('items').get(0).get('completed')
+    let updatedItemCheckboxStore = store.getState().todos.get('items').get(0).get(completed)
     let updatedItemCheckboxChecked = itemCheckbox.prop('checked')
 
     expect(updatedItemCheckboxStore).toEqual(true)
     expect(updatedItemCheckboxChecked).toEqual(true)
 
     itemCheckbox.simulate('change')
-    updatedItemCheckboxStore = store.getState().todos.get('items').get(0).get('completed')
+    updatedItemCheckboxStore = store.getState().todos.get('items').get(0).get(completed)
     updatedItemCheckboxChecked = itemCheckbox.prop('checked')
 
     expect(updatedItemCheckboxStore).toEqual(false)
@@ -190,9 +190,9 @@ describe('TodoList integration testing', () => {
     let items = store.getState().todos.get('items')
 
     expect(items.size).toEqual(3)
-    expect(item1.get('completed')).toEqual(true)
-    expect(item2.get('completed')).toEqual(false)
-    expect(item3.get('completed')).toEqual(false)
+    expect(item1.get(completed)).toEqual(true)
+    expect(item2.get(completed)).toEqual(false)
+    expect(item3.get(completed)).toEqual(false)
 
     // test 3 filters
     store.dispatch(setActiveFilter(uncompleted))
@@ -209,7 +209,7 @@ describe('TodoList integration testing', () => {
     store.dispatch(setToggleComplete(item1.get('id')))
 
     item1 = store.getState().todos.get('items').get(0)
-    expect(item1.get('completed')).toEqual(false)
+    expect(item1.get(completed)).toEqual(false)
 
     // handle an undefined items or filteredItems case
     store.dispatch(setActiveFilter(completed))
