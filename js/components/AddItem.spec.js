@@ -13,7 +13,7 @@ describe('AddItem', () => {
   })
 
   it('should render a form and an input', () => {
-    const component = shallow(<UnwrappedAddItem />) 
+    const component = render(<UnwrappedAddItem />) 
     expect(component.find('form').length).toEqual(1)
     expect(component.find('input').length).toEqual(1)
   })

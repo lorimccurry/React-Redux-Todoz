@@ -4,17 +4,25 @@ exports[`AddItem AddItem snapshot test 1`] = `
 <form
   onSubmit={[Function]}
 >
-  <fieldset>
-    <legend>
+  <FormGroup
+    bsClass="form-group"
+  >
+    <ControlLabel
+      bsClass="control-label"
+      srOnly={false}
+    >
       Gimme tha todoz:
-    </legend>
-    <input
+    </ControlLabel>
+    <FormControl
       autoFocus={true}
+      bsClass="form-control"
+      bsSize="lg"
+      componentClass="input"
       onChange={[Function]}
       placeholder="Get coffee"
       type="text"
       value=""
     />
-  </fieldset>
+  </FormGroup>
 </form>
 `;
