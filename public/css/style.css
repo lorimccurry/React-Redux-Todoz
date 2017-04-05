@@ -28,10 +28,20 @@ body{
   border: 1px solid #cdcdcd;
   border-bottom-width: 2px;
 }
+.logo {
+  font-size: 28px;
+}
+.logo span {
+  text-transform: uppercase;
+}
 .add-msg {
   font-size: 25px;
   font-weight: 300;
   margin: 1em auto;
+}
+li:hover {
+  background-color: #ccc;
+  color: #333333;
 }
 button {
   text-transform: uppercase;
@@ -44,7 +54,7 @@ button {
   width: 90%;
   word-wrap: break-word;
 }
-button, input, ul, li {
+button, input, ul, li, .navbar, .navbar-inverse {
   border-radius: 0 !important;
 }
 input, legend, .item-text, button, p {
