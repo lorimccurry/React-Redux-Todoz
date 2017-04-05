@@ -20,7 +20,7 @@ class Item extends React.Component {
   render () {
     const { item, dispatchDeleteItem, dispatchSetEditID } = this.props
     return (
-      <li>
+      <li className='list-group-item'>
         <Row className='show-grid'>
           <Col sm={8} xs={6}>
             <Checkbox
@@ -47,7 +47,7 @@ class Item extends React.Component {
               <Button
                 onClick={() => dispatchDeleteItem(item.get('id'))}
                 className='delete-btn'
-                bsStyle='danger'
+                bsStyle='primary'
                 bsSize='lg'
               >
                 Delete

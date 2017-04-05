@@ -25,7 +25,7 @@ function Items (props) {
   }
 
   return (
-    <ul>
+    <ul className='list-group'>
       {renderListItems(items, editID)}
     </ul>
   )

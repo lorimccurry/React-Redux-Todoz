@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Item Item snapshot test 1`] = `
-<li>
+<li
+  className="list-group-item"
+>
   <Row
     bsClass="row"
     className="show-grid"
@@ -56,7 +58,7 @@ exports[`Item Item snapshot test 1`] = `
           block={false}
           bsClass="btn"
           bsSize="lg"
-          bsStyle="danger"
+          bsStyle="primary"
           className="delete-btn"
           disabled={false}
           onClick={[Function]}
