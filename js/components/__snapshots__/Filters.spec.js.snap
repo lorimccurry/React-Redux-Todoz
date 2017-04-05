@@ -1,24 +1,47 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Filters Filters snapsnot test 1`] = `
-<div>
-  <button
+<ButtonGroup
+  block={false}
+  bsClass="btn-group"
+  justified={false}
+  vertical={false}
+>
+  <Button
+    active={false}
+    block={false}
+    bsClass="btn"
+    bsSize="lg"
+    bsStyle="default"
     className="filter-all"
+    disabled={false}
     onClick={[Function]}
   >
     All
-  </button>
-  <button
+  </Button>
+  <Button
+    active={false}
+    block={false}
+    bsClass="btn"
+    bsSize="lg"
+    bsStyle="default"
     className="filter-completed"
+    disabled={false}
     onClick={[Function]}
   >
     Completed
-  </button>
-  <button
+  </Button>
+  <Button
+    active={false}
+    block={false}
+    bsClass="btn"
+    bsSize="lg"
+    bsStyle="default"
     className="filter-uncompleted"
+    disabled={false}
     onClick={[Function]}
   >
     Uncompleted
-  </button>
-</div>
+  </Button>
+</ButtonGroup>
 `;

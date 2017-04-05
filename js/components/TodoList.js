@@ -41,7 +41,7 @@ class TodoList extends React.Component {
           />
       },
       'default': () => {
-        return <p>Add some todoz!</p>
+        return <p className='add-msg'>Add some todoz!</p>
       }
     }
     return (listRender[hasItems] || listRender['default'])()

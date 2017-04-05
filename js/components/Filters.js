@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { setActiveFilter } from '../actions/actionCreators'
+import { Button, ButtonGroup } from 'react-bootstrap'
 
 class Filters extends React.Component {
   constructor () {
@@ -15,26 +16,29 @@ class Filters extends React.Component {
 
   render () {
     return (
-      <div>
-        <button
+      <ButtonGroup>
+        <Button
+          bsSize='lg'
           className='filter-all'
           onClick={() => this.handleClick('all')}
         >
           All
-        </button>
-        <button
+        </Button>
+        <Button
+          bsSize='lg'
           className='filter-completed'
           onClick={() => this.handleClick('completed')}
         >
           Completed
-        </button>
-        <button
+        </Button>
+        <Button
+          bsSize='lg'
           className='filter-uncompleted'
           onClick={() => this.handleClick('uncompleted')}
         >
           Uncompleted
-        </button>
-      </div>
+        </Button>
+      </ButtonGroup>
     )
   }
 }

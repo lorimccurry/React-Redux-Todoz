@@ -3,7 +3,9 @@
 exports[`TodoList TodoList snapshot test 1`] = `
 <div>
   <Connect(AddItem) />
-  <p>
+  <p
+    className="add-msg"
+  >
     Add some todoz!
   </p>
   <Connect(Filters) />
