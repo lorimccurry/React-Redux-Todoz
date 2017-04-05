@@ -1,7 +1,7 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import { Map } from 'immutable'
-import { shallow, mount } from 'enzyme'
+import { shallow, mount, render } from 'enzyme'
 import { shallowToJson } from 'enzyme-to-json'
 import { spy } from 'sinon'
 import { Unwrapped as UnwrappedItem } from './Item'
@@ -24,12 +24,12 @@ describe('Item', () => {
 
   it('should render an li, checkbox, text, delete button, edit button', () => {
     const item = getImmutableItem()
-    const component = shallow(<UnwrappedItem key={item.get('id')} item={item} />) 
+    const component = render(<UnwrappedItem key={item.get('id')} item={item} />) 
     expect(component.find('li').length).toEqual(1)
     expect(component.find('input[type="checkbox"]').length).toEqual(1)
-    expect(component.find('p.item-text').length).toEqual(1)
-    expect(component.find('button.edit-btn').length).toEqual(1)
-    expect(component.find('button.delete-btn').length).toEqual(1)
+    expect(component.find('.item-text').length).toEqual(1)
+    expect(component.find('.edit-btn').length).toEqual(1)
+    expect(component.find('.delete-btn').length).toEqual(1)
   })
 
   it('should render an item with given completed status, id, and text', () => {

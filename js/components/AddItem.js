@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { addItem } from '../actions/actionCreators'
+import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap'
 
 class AddItem extends React.Component {
   constructor () {
@@ -27,16 +28,17 @@ class AddItem extends React.Component {
   render () {
     return (
       <form onSubmit={this.handleSubmit}>
-        <fieldset>
-          <legend>Gimme tha todoz:</legend>
-          <input
+        <FormGroup>
+          <ControlLabel>Gimme tha todoz:</ControlLabel>
+          <FormControl
             type='text'
             placeholder='Get coffee'
             value={this.state.itemInput}
             onChange={this.handleChange}
             autoFocus
+            bsSize='lg'
           />
-        </fieldset>
+        </FormGroup>
       </form>
     )
   }

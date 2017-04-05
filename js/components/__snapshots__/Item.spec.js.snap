@@ -1,30 +1,72 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Item Item snapshot test 1`] = `
-<li>
-  <input
-    checked={false}
-    name="completed"
-    onChange={[Function]}
-    onKeyDown={[Function]}
-    type="checkbox"
-  />
-  <p
-    className="item-text"
+<li
+  className="list-group-item"
+>
+  <Row
+    bsClass="row"
+    className="show-grid"
+    componentClass="div"
   >
-    do the codez
-  </p>
-  <button
-    className="edit-btn"
-    onClick={[Function]}
-  >
-    Edit
-  </button>
-  <button
-    className="delete-btn"
-    onClick={[Function]}
-  >
-    Delete
-  </button>
+    <Col
+      bsClass="col"
+      componentClass="div"
+      sm={8}
+      xs={6}
+    >
+      <Checkbox
+        bsClass="checkbox"
+        checked={false}
+        disabled={false}
+        inline={true}
+        name="completed"
+        onChange={[Function]}
+        onKeyDown={[Function]}
+        type="checkbox"
+      >
+        <p
+          className="item-text"
+        >
+          do the codez
+        </p>
+      </Checkbox>
+    </Col>
+    <Col
+      bsClass="col"
+      componentClass="div"
+      sm={4}
+      xs={6}
+    >
+      <ButtonToolbar
+        bsClass="btn-toolbar"
+      >
+        <Button
+          active={false}
+          block={false}
+          bsClass="btn"
+          bsSize="lg"
+          bsStyle="primary"
+          className="edit-btn"
+          disabled={false}
+          onClick={[Function]}
+        >
+          Edit
+        </Button>
+        <Button
+          active={false}
+          block={false}
+          bsClass="btn"
+          bsSize="lg"
+          bsStyle="primary"
+          className="delete-btn"
+          disabled={false}
+          onClick={[Function]}
+        >
+          Delete
+        </Button>
+      </ButtonToolbar>
+    </Col>
+  </Row>
 </li>
 `;

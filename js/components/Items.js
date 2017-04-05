@@ -8,24 +8,29 @@ function Items (props) {
   if (!items) {
     return null
   }
+
   function renderListItems (items, editID) {
     return items.map((item) => {
-      if (editID === item.get('id')) {
-        return <EditItem
-          key={item.get('id')}
-          item={item}
-        />
-      } else {
-        return <Item
-          key={item.get('id')}
-          item={item}
-        />
+      var itemRender = {
+        [item.get('id')]: () => {
+          return <EditItem
+            key={item.get('id')}
+            item={item}
+          />
+        },
+        'default': () => {
+          return <Item
+            key={item.get('id')}
+            item={item}
+          />
+        }
       }
+      return (itemRender[editID] || itemRender['default'])()
     })
   }
 
   return (
-    <ul>
+    <ul className='list-group'>
       {renderListItems(items, editID)}
     </ul>
   )

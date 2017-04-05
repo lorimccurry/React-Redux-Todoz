@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { deleteItem, setEditID, setToggleComplete } from '../actions/actionCreators'
 import ImmutablePropTypes from 'react-immutable-proptypes'
+import { Button, ButtonToolbar, Checkbox, Row, Col } from 'react-bootstrap'
 
 class Item extends React.Component {
   constructor () {
@@ -19,25 +20,41 @@ class Item extends React.Component {
   render () {
     const { item, dispatchDeleteItem, dispatchSetEditID } = this.props
     return (
-      <li>
-        <input
-          type='checkbox'
-          checked={item.get('completed')}
-          onChange={(e) => this.handleToggleComplete(e, item.get('id'))}
-          onKeyDown={(e) => this.handleToggleComplete(e, item.get('id'))}
-          name='completed'
-        />
-        <p className='item-text'>{item.get('text')}</p>
-        <button
-          onClick={() => dispatchSetEditID(item.get('id'))}
-          className='edit-btn'>
-          Edit
-        </button>
-        <button
-          onClick={() => dispatchDeleteItem(item.get('id'))}
-          className='delete-btn'>
-          Delete
-        </button>
+      <li className='list-group-item'>
+        <Row className='show-grid'>
+          <Col sm={8} xs={6}>
+            <Checkbox
+              inline
+              type='checkbox'
+              checked={item.get('completed')}
+              onChange={(e) => this.handleToggleComplete(e, item.get('id'))}
+              onKeyDown={(e) => this.handleToggleComplete(e, item.get('id'))}
+              name='completed'
+            >
+              <p className='item-text'>{item.get('text')}</p>
+            </Checkbox>
+          </Col>
+          <Col sm={4} xs={6}>
+            <ButtonToolbar>
+              <Button
+                onClick={() => dispatchSetEditID(item.get('id'))}
+                className='edit-btn'
+                bsStyle='primary'
+                bsSize='lg'
+              >
+                Edit
+              </Button>
+              <Button
+                onClick={() => dispatchDeleteItem(item.get('id'))}
+                className='delete-btn'
+                bsStyle='primary'
+                bsSize='lg'
+              >
+                Delete
+              </Button>
+            </ButtonToolbar>
+          </Col>
+        </Row>
       </li>
     )
   }

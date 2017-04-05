@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { setUpdateText, setEditID } from '../actions/actionCreators'
 import ImmutablePropTypes from 'react-immutable-proptypes'
+import { Button, FormControl, Row, Col } from 'react-bootstrap'
 
 class EditItem extends React.Component {
   handleChange (e) {
@@ -17,18 +18,33 @@ class EditItem extends React.Component {
   render () {
     const { item } = this.props
     return (
-      <li key={item.get('id')}>
-        <input
-          type='text'
-          value={item.get('text')}
-          onChange={(e) => this.handleChange(e)}
-          onKeyDown={(e) => this.handleFinishUpdate(e)}
-          autoFocus
-          className='update-input'
-        />
-        <button className='update-btn' onClick={(e) => this.handleFinishUpdate(e)}>
-          Update
-        </button>
+      <li
+        key={item.get('id')}
+        className='list-group-item'
+      >
+        <Row className='show-grid'>
+          <Col sm={8} xs={6}>
+            <FormControl
+              type='text'
+              value={item.get('text')}
+              onChange={(e) => this.handleChange(e)}
+              onKeyDown={(e) => this.handleFinishUpdate(e)}
+              autoFocus
+              className='update-input'
+              bsSize='lg'
+            />
+          </Col>
+          <Col sm={4} xs={6}>
+            <Button
+              className='update-btn'
+              onClick={(e) => this.handleFinishUpdate(e)}
+              bsStyle='primary'
+              bsSize='lg'
+            >
+              Update
+            </Button>
+          </Col>
+        </Row>
       </li>
     )
   }

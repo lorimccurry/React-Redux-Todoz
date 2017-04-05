@@ -12,41 +12,51 @@
 html{
   height: 100%;
   overflow-x: hidden;
-  font-family: 'Roboto', sans-serif;
 }
 body{
   height: 100%;
   color: #555555;
+  font-family: 'Roboto', sans-serif;
 }
 .page-container {
   width: 80%;
   margin: auto;
   position: relative;
-  padding-top: 80px;
+  padding: 2em;
+  margin-top: 100px;
+  background: #efefef;
+  border: 1px solid #cdcdcd;
+  border-bottom-width: 2px;
 }
-input, legend, .item-text, button, p {
-  font-size: 18px;
+.logo {
+  font-size: 28px;
 }
-ul {
-  padding-left: 0;
+.logo span {
+  text-transform: uppercase;
 }
-li {
-  list-style: none;
-  margin-bottom: 10px;
+.add-msg {
+  font-size: 25px;
+  font-weight: 300;
+  margin: 1em auto;
+}
+li:hover {
+  background-color: #ccc;
+  color: #333333;
 }
 button {
-  padding: 1em;
-  margin-left: .8em;
-  border-radius: none;
-  background-color: #42a5f5; 
-  border-color: #42a5f5;
-  color: #fff;
   text-transform: uppercase;
   letter-spacing: 2px;
+  font-weight: 300 !important;
 }
 .item-text {
   margin-left: 1em;
   display: inline-block;
-  width: 50%;
+  width: 90%;
   word-wrap: break-word;
+}
+button, input, ul, li, .navbar, .navbar-inverse {
+  border-radius: 0 !important;
+}
+input, legend, .item-text, button, p {
+  font-size: 18px;
 }

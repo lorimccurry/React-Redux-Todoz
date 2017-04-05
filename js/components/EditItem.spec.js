@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow, mount } from 'enzyme'
+import { shallow, mount, render } from 'enzyme'
 import { shallowToJson } from 'enzyme-to-json'
 import { spy } from 'sinon'
 import { Map } from 'immutable'
@@ -24,16 +24,21 @@ describe('EditItem', () => {
 
   it('should render an li, input, update button', () => {
     const immutableEditItem = getImmutableItem()
-    const component = shallow(<UnwrappedEditItem key={immutableEditItem.get('id')} item={immutableEditItem} />)
+    const component = render(<UnwrappedEditItem key={immutableEditItem.get('id')} item={immutableEditItem} />)
     expect(component.find('li').length).toEqual(1)
     expect(component.find('input').length).toEqual(1)
-    expect(component.find('button.update-btn').length).toEqual(1)
+    expect(component.find('.update-btn').length).toEqual(1)
+  })
+
+  it('should have the correct key', () => {
+    const immutableEditItem = getImmutableItem()
+    const component = shallow(<UnwrappedEditItem key={immutableEditItem.get('id')} item={immutableEditItem} />)
     expect(component.key()).toEqual('iou12oiv')
   })
 
   it('should render the existing item text in the input', () => {
     const immutableEditItem = getImmutableItem()
-    const component = shallow(<UnwrappedEditItem key={immutableEditItem.get('id')} item={immutableEditItem} />)
+    const component = render(<UnwrappedEditItem key={immutableEditItem.get('id')} item={immutableEditItem} />)
     const input = component.find('input')
     expect(input.prop('value')).toEqual('do the codez')
   })

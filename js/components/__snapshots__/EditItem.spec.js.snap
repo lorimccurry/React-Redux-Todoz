@@ -1,20 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EditItem EditItem snapshot test 1`] = `
-<li>
-  <input
-    autoFocus={true}
-    className="update-input"
-    onChange={[Function]}
-    onKeyDown={[Function]}
-    type="text"
-    value="do the codez"
-  />
-  <button
-    className="update-btn"
-    onClick={[Function]}
+<li
+  className="list-group-item"
+>
+  <Row
+    bsClass="row"
+    className="show-grid"
+    componentClass="div"
   >
-    Update
-  </button>
+    <Col
+      bsClass="col"
+      componentClass="div"
+      sm={8}
+      xs={6}
+    >
+      <FormControl
+        autoFocus={true}
+        bsClass="form-control"
+        bsSize="lg"
+        className="update-input"
+        componentClass="input"
+        onChange={[Function]}
+        onKeyDown={[Function]}
+        type="text"
+        value="do the codez"
+      />
+    </Col>
+    <Col
+      bsClass="col"
+      componentClass="div"
+      sm={4}
+      xs={6}
+    >
+      <Button
+        active={false}
+        block={false}
+        bsClass="btn"
+        bsSize="lg"
+        bsStyle="primary"
+        className="update-btn"
+        disabled={false}
+        onClick={[Function]}
+      >
+        Update
+      </Button>
+    </Col>
+  </Row>
 </li>
 `;
