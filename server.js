@@ -15,7 +15,6 @@ const server = express()
 server.use('/public', express.static('./public'))
 
 server.use((req, res) => {
-  // const context = ReactRouter.createServerRenderContext() 
   const body = ReactDOMServer.renderToString(
     React.createElement(App)
   )
