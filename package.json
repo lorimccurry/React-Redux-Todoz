@@ -11,7 +11,10 @@
     "build": "webpack",
     "dev": "webpack-dev-server",
     "lint": "eslint js/**/*.js",
-    "watch": "webpack --watch"
+    "watch": "webpack --watch",
+    "cover": "npm run test -- --coverage",
+    "start": "NODE_ENV=server node server.js",
+    "prodbuild": "NODE_ENV=production webpack -p"
   },
   "dependencies": {
     "axios": "0.15.2",
