@@ -12,3 +12,6 @@ yarn-error.log*
 
 # Yarn Integrity file
 .yarn-integrity
+
+# Jest coverage reports
+coverage/
